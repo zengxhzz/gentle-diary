@@ -1,0 +1,78 @@
+name: Build unsigned iOS IPA
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      configuration:
+        description: Native build configuration
+        type: choice
+        options: [Release, Debug]
+        default: Release
+      simulator_smoke:
+        description: Also launch in an iPhone simulator and capture a screenshot
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-unsigned-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 35
+    env:
+      BUILD_CONFIGURATION: ${{ inputs.configuration || 'Release' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          node --version
+          pod --version
+      - name: Install and test
+        run: |
+          npm ci
+          npm test
+      - name: Build web app and sync iOS
+        run: |
+          npm run cap:sync:ios
+          plutil -lint ios/App/App/Info.plist ios/App/App/PrivacyInfo.xcprivacy
+      - name: Build unsigned device IPA
+        run: bash scripts/ios/build-unsigned.sh
+      - name: Upload unsigned IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: gentle-diary-unsigned-${{ env.BUILD_CONFIGURATION }}-${{ github.run_number }}
+          path: |
+            build/ios/*.ipa
+            build/ios/SHA256SUMS.txt
+            build/ios/build-info.txt
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
+      - name: iPhone simulator startup check
+        if: github.event_name == 'push' || inputs.simulator_smoke
+        run: bash scripts/ios/simulator-smoke.sh
+      - name: Upload build logs and simulator evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-diagnostics-${{ github.run_number }}
+          path: |
+            build/ios/*.log
+            build/ios/simulator-*.png
+            build/ios/simulator-*.txt
+          if-no-files-found: ignore
+          retention-days: 7

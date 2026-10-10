@@ -1,0 +1,12 @@
+{
+  "appId": "com.zhuanz1.diary",
+  "appName": "日记",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#F7F4EE"
+  }
+}
