@@ -1,5 +1,13 @@
 # iOS 未签名 IPA 构建与调试
 
+## 本次构建记录（2026-10-11）
+
+- 目标：上传现有项目及设计/验收文档，由既有 GitHub Actions 构建当前版本未签名 IPA。
+- 本地验证：22 个测试文件、214 项测试通过；Vite 生产构建 131 模块通过。
+- 不修改应用功能、依赖、数据库或历史迁移；不上传签名材料、私人备份、个人照片或构建缓存。
+- 云端构建与产物结果将在实际运行后补充；本地 Windows 检查不等于 Xcode 编译通过。
+- 未完成正式签名和 iPhone 真机安装验收。
+
 ## Windows + GitHub + iPhone
 
 本地不需要 Mac。GitHub Actions 在临时 macOS 机器上使用 Xcode 和 CocoaPods 编译，输出 `Payload/App.app` 结构的未签名 IPA。构建不登录 Apple、不创建签名身份、不使用 `xcodebuild -exportArchive`。本地签名工具必须支持重新签名 App 和所有嵌入的原生 frameworks；签名证书、描述文件、有效期和设备限制由本地工具处理。

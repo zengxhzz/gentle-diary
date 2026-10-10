@@ -323,7 +323,10 @@ async function handleSaveSelect(id) {
   saveOpen.value = false
 
   if (id === 'draft') {
-    try { await editor.saveAsDraft() } catch { /* 编辑器显示错误。 */ }
+    try {
+      const saved = await editor.saveAsDraft()
+      if (saved) showNotice('已保存草稿')
+    } catch { /* 编辑器显示错误。 */ }
     return
   }
 
@@ -402,16 +405,7 @@ function showNotice(message) {
         <span class="writing-label">写给自己</span>
       </section>
 
-      <p
-        class="save-status"
-        :data-state="editor.saveState.value"
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        <span class="status-dot" aria-hidden="true"></span>
-        {{ notice || editor.saveStatusText.value || '本机草稿 · 自动保存' }}
-      </p>
-
+      <div class="writing-body">
       <div v-if="contextLine || currentMoodLabel || selectedTagNames.length" class="today-meta">
         <p v-if="contextLine" class="context-line">{{ contextLine }}</p>
         <button
@@ -440,6 +434,7 @@ function showNotice(message) {
       <p v-if="editor.loadError.value" class="error-line" role="status">
         {{ editor.saveState.value === 'error' ? '内容暂未保存，请稍后再试。' : editor.loadError.value }}
       </p>
+      </div>
     </main>
     </div>
 
@@ -453,6 +448,10 @@ function showNotice(message) {
     >
       <AppIcon name="plus" :size="24" />
     </button>
+
+    <p v-if="notice" class="writing-notice" role="status" aria-live="polite" aria-atomic="true">
+      {{ notice }}
+    </p>
 
     <AppActionSheet
       :open="menuOpen"
@@ -598,32 +597,28 @@ function showNotice(message) {
   white-space: nowrap;
 }
 
-.save-status {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 1.5rem;
+.writing-body {
+  padding-top: 3.75rem;
+}
+
+.writing-notice {
+  position: fixed;
+  bottom: calc(var(--safe-bottom) + 6rem);
+  left: 50%;
+  z-index: 6;
+  width: max-content;
+  max-width: calc(100vw - 2 * var(--page-gutter));
   margin: 0;
-  padding: 1rem 0 2.75rem;
+  padding: 0.65rem 1rem;
   color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   font-size: var(--text-xs);
-  letter-spacing: 0.04em;
-}
-
-.status-dot {
-  width: 0.3rem;
-  height: 0.3rem;
-  flex-shrink: 0;
-  background: var(--color-accent);
-  border-radius: 50%;
-}
-
-.save-status[data-state='error'] {
-  color: var(--color-danger);
-}
-
-.save-status[data-state='error'] .status-dot {
-  background: var(--color-danger);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+  transform: translateX(-50%);
 }
 
 .header-actions {
@@ -774,8 +769,8 @@ function showNotice(message) {
     padding-bottom: 1.5rem;
   }
 
-  .save-status {
-    padding-bottom: 2.25rem;
+  .writing-body {
+    padding-top: 3.25rem;
   }
 }
 </style>

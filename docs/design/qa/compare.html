@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>轻描纸印 · 图稿与实际页面核对</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 16px; background: #f3f0e9; color: #34453f; font: 14px system-ui, sans-serif; }
+  h1 { font-size: 18px; margin: 0 0 12px; }
+  h2 { font-size: 14px; font-weight: 500; margin: 0 0 10px; }
+  .boards { display: grid; grid-template-columns: 480px 480px; gap: 16px; }
+  .source-board { display: block; width: 480px; }
+  .actual-board { display: grid; grid-template-columns: repeat(3, 145px); gap: 18px 9px; padding: 36px 12px 10px; }
+  .actual-board figure { margin: 0; }
+  .actual-board img { display: block; width: 145px; height: auto; }
+  figcaption { text-align: center; font-size: 12px; padding-top: 6px; }
+  .focus { display: grid; grid-template-columns: 390px 390px; gap: 20px; margin-top: 30px; }
+  .crop { position: relative; width: 390px; height: 844px; overflow: hidden; background: #fffcf6; }
+  .crop img { position: absolute; width: 1288.258px; max-width: none; left: -37.742px; top: -117px; }
+  .actual-focus { display: block; width: 390px; height: 844px; }
+</style>
+<h1>视觉核对：选定图稿与实际浏览器（非 App 新页面）</h1>
+<section id="full" class="boards">
+  <div><h2>用户选定图稿</h2><img class="source-board" src="../light-paper-approved.png" alt="用户选定的六主题图稿"></div>
+  <div><h2>实际应用截图 · 390×844</h2><div class="actual-board">
+    <figure><img src="cloud-390.jpg" alt="云朵实际页面"><figcaption>云朵</figcaption></figure>
+    <figure><img src="plant-390.jpg" alt="植物实际页面"><figcaption>植物</figcaption></figure>
+    <figure><img src="cat-390.jpg" alt="小猫实际页面"><figcaption>小猫</figcaption></figure>
+    <figure><img src="paper-plane-390.jpg" alt="纸飞机实际页面"><figcaption>纸飞机</figcaption></figure>
+    <figure><img src="moon-390.jpg" alt="星月实际页面"><figcaption>星月</figcaption></figure>
+    <figure><img src="geometry-390.jpg" alt="几何实际页面"><figcaption>几何</figcaption></figure>
+  </div></div>
+</section>
+<section id="focus" class="focus">
+  <div><h2>图稿云朵局部 · 按页宽 310→390 归一化</h2><div class="crop"><img src="../light-paper-approved.png" alt="图稿云朵页面局部"></div></div>
+  <div><h2>实际云朵页面 · 390×844 原始截图</h2><img class="actual-focus" src="cloud-390.jpg" alt="实际云朵写作页"></div>
+</section>
+</html>
