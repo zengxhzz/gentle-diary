@@ -2,7 +2,7 @@
 
 > 本文件是项目的 Single Source of Truth。代码、数据模型、交互原则或架构发生变化时，必须同步更新这里。
 
-最新工程检查（2026-10-11）：当前 22 个测试文件、214 项测试与 131 模块生产构建通过。按用户要求将现有项目上传至 `zengxhzz/gentle-diary`，随后通过既有 macOS Actions 构建未签名 IPA；具体构建结果见 [IOS_BUILD.md](IOS_BUILD.md)。本轮不改变功能、依赖、schema、migration 或用户数据，不包含签名材料、私人备份和编译缓存。
+最新工程检查（2026-10-11）：当前 22 个测试文件、214 项测试与 131 模块生产构建通过。现有项目已上传至 `zengxhzz/gentle-diary`，构建提交 `fbef477` 已通过既有 macOS Actions / Xcode 16.4 编译未签名 Release IPA，并下载及校验；模拟器结果与签名/安装边界见 [IOS_BUILD.md](IOS_BUILD.md)。本轮不改变功能、依赖、schema、migration 或用户数据，不包含签名材料、私人备份和编译缓存。
 
 ## 1. 项目目标
 
@@ -2018,3 +2018,12 @@ Completed（代码、自动化测试、Web/Android 构建与核心真机冒烟�
 
 - 用户决定不需要声音；移除本轮音效代码、设置入口及专用测试，试听文件和辅助脚本移出项目并保留可恢复副本。后续不以此前音色讨论作为需求依据。
 - 保留首页去除常驻保存状态、正文上移和手动保存文字反馈。214 项测试、131 模块生产构建、Android sync 与 Debug 构建通过；APK 内入口文件与本轮 dist 一致。无 schema、migration、保存逻辑、依赖或数据库内容变化，无 Git 提交、代理修改或手机安装。
+
+### Change 2026-10-11 / 上传项目与构建 iOS IPA
+
+- 目标：按用户要求将当前项目上传既有 GitHub 仓库，并产出可供重新签名的 IPA。
+- 上传：`main` 快进至构建提交 `fbef477`，包含首页安静写作调整、7 项展示测试和原有未跟踪的设计/验收文档及自有 QA 截图；不上传私人数据、工作区外备份、签名材料、依赖目录或编译缓存。没有强推或覆盖远端历史。
+- 验证：本地 22 文件 214 项测试、Vite 131 模块构建通过；[Actions 第 3 次运行](https://github.com/zengxhzz/gentle-diary/actions/runs/38068796605)全绿，Xcode 16.4 archive 和模拟器启动通过。人工查看启动截图，无白屏；不冒充输入/权限/备份真机验收。
+- 产物：`build/ios/run-3/gentle-diary-0.1.0-Release-3-unsigned.ipa`，2,176,723 字节，SHA-256 与云端清单一致；详情见 [IOS_BUILD.md](IOS_BUILD.md)。日志/截图下载至忽略的 `build/ios/run-3-diagnostics/`，自有启动截图另存 `docs/design/qa/ios/`。
+- 涉及文件：本节、`docs/IOS_BUILD.md`、`docs/RELEASE_READINESS.md`、`docs/design/qa/ios/2026-10-11-simulator-startup.png`；既有构建工作流与脚本不改动。
+- 数据与风险：本轮无 schema、migration、依赖、功能或用户数据变化。产物未签名，安装前需要同时重新签名 App 及嵌入 frameworks；尚无 iPhone 真机验收或正式发布。下一步为持有者签名并完成文档中的 iPhone 验证清单。仅记录结果的后续文档提交跳过重复 CI，不改变已构建的应用代码。

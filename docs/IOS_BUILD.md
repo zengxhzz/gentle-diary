@@ -5,7 +5,12 @@
 - 目标：上传现有项目及设计/验收文档，由既有 GitHub Actions 构建当前版本未签名 IPA。
 - 本地验证：22 个测试文件、214 项测试通过；Vite 生产构建 131 模块通过。
 - 不修改应用功能、依赖、数据库或历史迁移；不上传签名材料、私人备份、个人照片或构建缓存。
-- 云端构建与产物结果将在实际运行后补充；本地 Windows 检查不等于 Xcode 编译通过。
+- 已上传构建提交：`fbef477aa984ca3cdde27dad17e14060a7e971a7`。
+- [Actions 第 3 次运行](https://github.com/zengxhzz/gentle-diary/actions/runs/38068796605)全部通过：云端测试、Web 构建、iOS sync、plist 检查、Xcode 16.4 真机 archive、IPA 上传及 iPhone 模拟器启动检查。
+- 下载产物：`gentle-diary-unsigned-Release-3`；IPA 文件为 `gentle-diary-0.1.0-Release-3-unsigned.ipa`，2,176,723 字节，已保存至本地 `build/ios/run-3/`（构建目录不进入 Git）。
+- IPA SHA-256：`B4E781AF28D13021BF829EE6AE668242B28C8364E74C4A362267096ABCB408D6`，与云端 `SHA256SUMS.txt` 一致。`build-info.txt` 对应上述提交、Release、版本 0.1.0 / build 3、Bundle ID `com.zhuanz1.diary`。
+- 检查 IPA 包含可执行文件、Info.plist、PrivacyInfo、Web 入口及嵌入 frameworks；当前首页静默保存/手动提示代码存在，六张主题 PNG 与本地构建逐字节一致，检查到的 Web 资源引用均可在包中解析。跨系统构建的 JS/CSS 哈希和压缩符号可不同，不声称所有 Web 文件与 Windows dist 逐字节一致。
+- 已下载 `ios-diagnostics-3` 到 `build/ios/run-3-diagnostics/`：日志含 `ARCHIVE SUCCEEDED` / `BUILD SUCCEEDED`，模拟器进程启动记录存在；人工查看[启动截图](design/qa/ios/2026-10-11-simulator-startup.png)，首页和键盘正常显示，无白屏。这仅是首次启动证据，不等于正文保存、相机、备份、低内存和真机全流程通过。Pods 构建阶段未声明 outputs 的警告仍保留，未阻止构建。
 - 未完成正式签名和 iPhone 真机安装验收。
 
 ## Windows + GitHub + iPhone

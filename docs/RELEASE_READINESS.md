@@ -24,12 +24,14 @@
 | --- | ---: | --- |
 | `android/app/build/outputs/apk/debug/app-debug.apk` | 8357796 | 2026-10-10 无声音新版独立 QA 包，尚未安装验收，非正式发行 |
 | `android/app/build/outputs/apk/release/app-release-unsigned.apk` | 6935728 | 2026-10-08 历史未签名 Release，不含本轮首页调整，不能作为正式升级包安装 |
+| `build/ios/run-3/gentle-diary-0.1.0-Release-3-unsigned.ipa` | 2176723 | 2026-10-11 Actions / Xcode 16.4 构建通过，未签名，需重签名后安装；未做 iPhone 真机验收 |
 
 SHA-256：
 
 ```text
 Debug   F100BE3754C30EB9CD8CD711026DE4D7CEDBA4AB149575138F6E64D00C9169AB
 Release C975BD34647AA019E610D6C0E18D5D77D9B67E0BAE76EB0AA7EF891E9D6DC1C7
+IPA     B4E781AF28D13021BF829EE6AE668242B28C8364E74C4A362267096ABCB408D6
 ```
 
 版本现状：npm/备份 appVersion 为 `0.1.0`；Android versionName 为 `1.0`、versionCode 为 `1`。这是当前实际配置，不擅自覆盖已安装正式包的版本。发布时需确定一致的版本策略，并选择大于已有正式包的 versionCode。
@@ -47,7 +49,7 @@ Release C975BD34647AA019E610D6C0E18D5D77D9B67E0BAE76EB0AA7EF891E9D6DC1C7
 - [ ] 受控测试环境中的真正系统低内存相机回收、长时间/超大图库压力、第三方 DocumentsProvider 权限撤销/断连和系统备份行为。
 - [ ] 确定分发渠道和发布版本；只有完成上述验收后才能称为正式发布完成。
 
-这些项目需要签名持有者、额外设备或人工读屏/受控环境，不能用更多单元测试伪造通过。2026-10-11 按用户要求提交并上传当前项目，准备运行既有 iOS 未签名构建；本地重新验证 214 项测试及 131 模块构建通过。无新依赖、无 schema 变更、无数据库重建、无代理改动。iOS 实际运行结果见 [IOS_BUILD.md](IOS_BUILD.md)。
+这些项目需要签名持有者、额外设备或人工读屏/受控环境，不能用更多单元测试伪造通过。2026-10-11 按用户要求提交并上传当前项目，既有 iOS 未签名构建的真机 archive 与 IPA 上传已通过，下载校验通过；本地重新验证 214 项测试及 131 模块构建通过。无新依赖、无 schema 变更、无数据库重建、无代理改动。iOS 模拟器及真机验收边界见 [IOS_BUILD.md](IOS_BUILD.md)。
 
 ## 非阻塞风险
 
