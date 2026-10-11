@@ -1,11 +1,12 @@
 # 发布验收清单
 
-更新：2026-10-11。当前结论：Phase 0～4、本地数据安全及当前单机收尾已具备可用构建；**尚不是完成正式发布的签名版本**。保留安静自动保存、正文上移与无声音基线；最新内置用户选定的寒蝉半圆体 16px，223 项测试与 Web 构建通过，但未重新生成或安装字体版 APK/IPA。以下真机与 Release 专项记录保留其历史日期。产品/架构以 [PROJECT_DESIGN.md](PROJECT_DESIGN.md) 为准，真机证据见 [design-qa.md](../design-qa.md)。不扩展加密、云同步、语音、天气或位置。
+更新：2026-10-11。当前结论：Phase 0～4、本地数据安全及当前单机收尾已具备可用构建；**尚不是完成正式发布的签名版本**。保留安静自动保存、正文上移与无声音基线；寒蝉半圆体 16px 版本 `10abe6c` 已上传，223 项测试与 Web 构建通过，字体版未签名 IPA build 4 已下载校验，云端模拟器启动通过；尚未真机安装，Android 字体版未构建。以下历史专项保留日期。产品/架构以 [PROJECT_DESIGN.md](PROJECT_DESIGN.md) 为准，证据见 [design-qa.md](../design-qa.md)。不扩展新功能阶段。
 
 ## 已完成的可重复验证
 
 - [x] 2026-10-11 `npm test`：23 文件、223 项通过，包含备份/恢复、附件、相机去重、自动保存、首页展示和新增 9 项字体检查。已取消功能的专用测试移出项目。
 - [x] 2026-10-11 `npm run build`：131 模块通过，字体与许可已打包且摘要一致；本次未运行 Capacitor sync。2026-10-10 Android sync 通过，属于字体改动前的历史结果。
+- [x] 2026-10-11 字体版 [Actions 第 4 次运行](https://github.com/zengxhzz/gentle-diary/actions/runs/38146350838)：云端 223 项测试、Web build、iOS sync、plist 检查、Release archive、IPA 上传与模拟器启动全部通过；本地 IPA 摘要、包内字体、许可、16px CSS 与构建提交核对通过。这里的 sync 为云端 iOS，不是本地 Android sync。
 - [x] 2026-10-10 `gradlew.bat assembleDebug --no-daemon`：通过，195 项任务。本轮未重跑原生 JUnit、Release 或 audit。
 - [x] 2026-10-08 历史验证：`gradlew.bat :app:testDebugUnitTest assembleDebug assembleRelease --no-daemon` 通过，458 项任务；7 项 JUnit、0 失败/错误，其中备份流复制 6 项。Release 未签名。
 - [x] 2026-10-08 历史验证：`npm audit --audit-level=moderate`，0 项漏洞。
@@ -20,13 +21,14 @@
 
 ## 当前产物
 
-以下原生包均早于本次寒蝉半圆体改动，**不包含新字体**；当前工作区 Web 构建不等于这些原生包已更新。
+只有 IPA build 4 包含本次寒蝉半圆体；其余 APK 和 IPA build 3 是历史产物，不包含新字体。
 
 | 产物 | 大小（字节） | 用途 |
 | --- | ---: | --- |
 | `android/app/build/outputs/apk/debug/app-debug.apk` | 8357796 | 2026-10-10 无声音新版独立 QA 包，尚未安装验收，非正式发行 |
 | `android/app/build/outputs/apk/release/app-release-unsigned.apk` | 6935728 | 2026-10-08 历史未签名 Release，不含本轮首页调整，不能作为正式升级包安装 |
 | `build/ios/run-3/gentle-diary-0.1.0-Release-3-unsigned.ipa` | 2176723 | 2026-10-11 Actions / Xcode 16.4 构建通过，未签名，需重签名后安装；未做 iPhone 真机验收 |
+| `build/ios/run-4/gentle-diary-0.1.0-Release-4-unsigned.ipa` | 5710319 | 2026-10-11 字体版最新 IPA，构建与模拟器启动通过，下载及 SHA-256/字体核对通过；未签名，未做 iPhone 真机验收 |
 
 SHA-256：
 
@@ -34,6 +36,7 @@ SHA-256：
 Debug   F100BE3754C30EB9CD8CD711026DE4D7CEDBA4AB149575138F6E64D00C9169AB
 Release C975BD34647AA019E610D6C0E18D5D77D9B67E0BAE76EB0AA7EF891E9D6DC1C7
 IPA     B4E781AF28D13021BF829EE6AE668242B28C8364E74C4A362267096ABCB408D6
+IPA4    B64DDEFBE47DA90C79951C36FA8D894AAAE587DD6657457509CB55FDE76DAE3A
 ```
 
 版本现状：npm/备份 appVersion 为 `0.1.0`；Android versionName 为 `1.0`、versionCode 为 `1`。这是当前实际配置，不擅自覆盖已安装正式包的版本。发布时需确定一致的版本策略，并选择大于已有正式包的 versionCode。

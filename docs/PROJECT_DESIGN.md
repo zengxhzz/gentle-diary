@@ -2,7 +2,7 @@
 
 > 本文件是项目的 Single Source of Truth。代码、数据模型、交互原则或架构发生变化时，必须同步更新这里。
 
-最新工程检查（2026-10-11）：当前 23 个测试文件、223 项测试与 131 模块生产构建通过。按用户选定预览内置「寒蝉半圆体」v1.805，日记正文为 16px，日期与控件不变；浏览器核对见 `design-qa.md`。字体修改尚未提交、上传或重新构建原生包。此前上传至 `zengxhzz/gentle-diary` 的构建提交 `fbef477` 已通过 macOS Actions / Xcode 16.4 编译未签名 Release IPA，下载及校验完成，但该 IPA 不含本次字体；边界见 [IOS_BUILD.md](IOS_BUILD.md)。本次无依赖、schema、migration 或用户数据改动。
+最新工程检查（2026-10-11）：当前 23 个测试文件、223 项测试与 131 模块生产构建通过。按用户选定预览内置「寒蝉半圆体」v1.805，日记正文为 16px，日期与控件不变；浏览器核对见 `design-qa.md`。字体版本 `10abe6c` 已上传 `zengxhzz/gentle-diary`，Actions 第 4 次运行 / Xcode 16.4 未签名 Release IPA 及模拟器启动检查通过，IPA 下载及摘要校验完成，确认包含原版字体和许可。尚无 iPhone 真机验收或正式签名，Android 字体包未重建；边界见 [IOS_BUILD.md](IOS_BUILD.md)。本次无依赖、schema、migration 或用户数据改动。
 
 ## 1. 项目目标
 
@@ -2038,3 +2038,11 @@ Completed（代码、自动化测试、Web/Android 构建与核心真机冒烟�
 - 验证：字体专项 9 项，全量 23 文件 223 项通过；Vite build 131 模块通过，打包字体和许可摘要与源文件一致。492×672 浏览器确认编辑和详情实际加载 ChillRoundM 16px / 33.6px，草稿往返、正式保存、时间线摘要通过，error 日志为空；选定预览与实装的 1:1 首行比较见 `design-qa.md`。
 - 风险：原版字体增加约 6.52 MB，选择保留预览字形和原始授权信息；测试只确认示例中文/混合字符不为空白字形，不宣称全 Unicode 覆盖。原生键盘、系统大字号与不同机型尚未复测。
 - 边界与下一步：未运行 Capacitor sync、Android/iOS 构建或手机安装，不提交/推送 Git，不改代理。现有 APK/IPA 不含新字体；下一步需重新打包后验证原生显示、输入法与系统字号，再继续既有发布清单。
+
+### Change 2026-10-11 / 上传字体版并生成 IPA
+
+- 用户随后明确要求上传 GitHub 并构建 IPA；字体提交 `10abe6cae9a66c20dafb147adaf6f366f4fcdd6a` 已普通快进推送到 main。此前字体实装阶段的未提交/未构建描述保留为历史边界。
+- 本地再次通过 223 项测试与 131 模块构建；[Actions 第 4 次运行](https://github.com/zengxhzz/gentle-diary/actions/runs/38146350838)云端测试、iOS sync、Xcode 16.4 Release archive 与模拟器启动检查全部通过。
+- 产物：`build/ios/run-4/gentle-diary-0.1.0-Release-4-unsigned.ipa`，5,710,319 字节，SHA-256 `B64DDEFBE47DA90C79951C36FA8D894AAAE587DD6657457509CB55FDE76DAE3A`，匹配云端清单。字体、完整 OFL、16px CSS 及包结构核对通过，详情见 iOS 构建文档。
+- 涉及文件：本节、`docs/IOS_BUILD.md`、`docs/RELEASE_READINESS.md`、`docs/THEME_REDESIGN_PLAN.md` 与 QA 记录；现有构建脚本/工作流、依赖与数据库不变。IPA、日志、临时下载辅助脚本位于忽略的 `build/`，不进仓库，不上传签名材料或用户数据。
+- 风险与下一步：IPA 未签名，需对 App 和嵌入 frameworks 重签名后安装；模拟器启动不代表 iPhone 真机输入/权限/备份通过。Android 字体版未构建，不改代理、不强推、不碰手机数据；下一步为持有者签名并验证字体、中文输入和既有发布矩阵。

@@ -1,6 +1,6 @@
 # 轻描纸印主题实装计划
 
-开始日期：2026-10-07。更新：2026-10-11。状态：主题实装与此前 OPPO 专项完成；保留安静自动保存、正文上移与无声音基线。按用户选定预览内置寒蝉半圆体，正文 16px；最新 223 项测试及生产构建通过，字体版尚未重新构建 APK/IPA 或安装手机。多机型、其他输入法和 TalkBack 全流程待验证。发布门槛见 [RELEASE_READINESS.md](RELEASE_READINESS.md)。
+开始日期：2026-10-07。更新：2026-10-11。状态：主题实装与此前 OPPO 专项完成；保留安静自动保存、正文上移与无声音基线。寒蝉半圆体 16px 已上传，223 项测试及生产构建通过，字体版未签名 IPA build 4 和模拟器启动检查通过，产物已下载校验；未安装手机，Android 字体版未构建。多机型、其他输入法和 TalkBack 全流程待验证。发布门槛见 [RELEASE_READINESS.md](RELEASE_READINESS.md)。
 
 本文件记录本轮执行状态；当前产品与架构契约仍以 [PROJECT_DESIGN.md](PROJECT_DESIGN.md) 为 Single Source of Truth。
 
@@ -63,8 +63,9 @@
 - [x] 编辑、占位提示、详情和日记摘要统一 16px；日期、按钮、caption、正文起点与装饰不变。
 - [x] 新增 9 项字体完整性/示例非空字形/样式检查；全量 223 项与 131 模块构建通过。
 - [x] 独立 origin 的自有示例完成编辑、草稿往返、发布、时间线与详情核对，无浏览器 error；1:1 字形对比与截图见 [design-qa.md](../design-qa.md)。
-- [ ] 字体版 Android/iOS 重新构建、原生输入法和系统大字号验证；现有包不包含本次改动。
-- 风险：原版字体新增约 6.52 MB；本次不裁字，不修改 schema/migration、不提交或上传 Git。
+- [x] 随后按用户要求上传字体提交 `10abe6c`；iOS build 4 构建、模拟器启动与本地 IPA 摘要/字体/许可校验通过，详情见 [IOS_BUILD.md](IOS_BUILD.md)。
+- [ ] 字体版 Android 构建、iPhone 真机签名安装、原生输入法和系统大字号验证；旧 APK 和 IPA build 3 不含本次字体。
+- 风险：原版字体新增约 6.52 MB；不裁字，不修改 schema/migration。最新 IPA 未签名，不能直接安装。
 
 ## 数据与兼容
 

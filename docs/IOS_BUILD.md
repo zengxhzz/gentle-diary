@@ -1,8 +1,19 @@
 # iOS 未签名 IPA 构建与调试
 
-当前工作区随后内置了寒蝉半圆体 16px（23 文件、223 项测试与 Web 构建通过）。下述第 3 次运行 IPA 对应字体改动前的提交，**不含新字体**；字体版尚未提交、上传或重新构建，也未完成原生显示验证。
+最新字体版已上传并通过第 4 次构建，包含寒蝉半圆体 16px；第 3 次运行保留为不含新字体的历史记录。所有 IPA 均未签名，尚无 iPhone 真机安装验收。
 
-## 本次构建记录（2026-10-11）
+## 最新字体版构建（2026-10-11 / build 4）
+
+- 按用户要求提交并上传字体版本，构建提交：`10abe6cae9a66c20dafb147adaf6f366f4fcdd6a`。
+- 本地 23 文件、223 项测试及 Vite 131 模块构建再次通过；[Actions 第 4 次运行](https://github.com/zengxhzz/gentle-diary/actions/runs/38146350838)全部通过，包括云端测试、Web 构建、iOS sync、plist 检查、Xcode 16.4 Release archive、IPA 上传及 iPhone 模拟器启动检查。
+- 下载至 `build/ios/run-4/gentle-diary-0.1.0-Release-4-unsigned.ipa`，5,710,319 字节；版本 0.1.0 / build 4，Bundle ID `com.zhuanz1.diary`。
+- SHA-256：`B64DDEFBE47DA90C79951C36FA8D894AAAE587DD6657457509CB55FDE76DAE3A`，与云端 `SHA256SUMS.txt` 一致；`build-info.txt` 的构建提交、版本、配置及 Xcode 版本已核对。
+- IPA 中字体为 `public/assets/ChillRoundM-DcZcyxmz.ttf`，6,515,060 字节，SHA-256 与选定原版一致；完整 OFL 许可摘要也与源文件一致。包内 CSS 确认本地 @font-face 与 1rem 正文 token；可执行文件、Info.plist、PrivacyInfo、Web 入口及 7 个嵌入 frameworks 存在。
+- 日志与截图下载至 `build/ios/run-4-diagnostics/`；日志含 `ARCHIVE SUCCEEDED` / `BUILD SUCCEEDED` 与 App 启动进程。人工查看[字体版模拟器启动截图](design/qa/ios/2026-10-11-font-simulator-startup.png)：首页、圆润占位字形及键盘显示，无白屏；并未输入正文或执行功能矩阵。Filesystem 上游未使用变量、AppIntents 元数据跳过和 Pods 脚本 outputs 警告保留，未阻止构建，不在本次升级依赖掩盖它们。
+- 模拟器启动检查不等于 iPhone 真机输入、系统字号、相机、备份和低内存流程验收。安装前必须重新签名 App 及所有嵌入 frameworks；本次不接触签名材料或手机私人数据。
+- Git 初始 HTTPS 连接失败后，通过仅对命令设置 `http.sslBackend=openssl`、`http.version=HTTP/1.1` 成功普通快进推送；未强推、修改系统/仓库代理或网络配置。临时下载辅助脚本、产物与日志位于忽略的 `build/`，不上传。
+
+## 历史构建记录（2026-10-11 / build 3）
 
 - 目标：上传现有项目及设计/验收文档，由既有 GitHub Actions 构建当前版本未签名 IPA。
 - 本地验证：22 个测试文件、214 项测试通过；Vite 生产构建 131 模块通过。
