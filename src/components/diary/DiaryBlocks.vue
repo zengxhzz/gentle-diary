@@ -42,8 +42,9 @@ function imageStyle(block) {
 .diary-blocks {
   display: block;
   color: var(--color-text-primary);
-  font-family: var(--font-reading);
-  font-size: 1.125rem;
+  font-family: var(--font-diary);
+  font-size: var(--text-diary);
+  font-weight: 400;
   line-height: 2.1;
   letter-spacing: 0.025em;
 }

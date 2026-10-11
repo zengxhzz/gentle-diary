@@ -47,8 +47,8 @@ watch(() => props.modelValue, () => nextTick(resize))
   min-height: 20rem;
   padding: 0;
   color: var(--color-text-primary);
-  font-family: var(--font-reading);
-  font-size: 1.0625rem;
+  font-family: var(--font-diary);
+  font-size: var(--text-diary);
   font-weight: 400;
   line-height: 2;
   letter-spacing: 0.018em;
@@ -64,8 +64,8 @@ watch(() => props.modelValue, () => nextTick(resize))
 
 .diary-text-editor::placeholder {
   color: color-mix(in srgb, var(--color-text-tertiary) 76%, transparent);
-  font-family: var(--font-sans);
-  font-size: var(--text-md);
+  font-family: var(--font-diary);
+  font-size: var(--text-diary);
   letter-spacing: 0.04em;
 }
 

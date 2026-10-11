@@ -104,8 +104,9 @@ watch(() => props.text, syncFromModel)
   min-height: 1.8em;
   margin: 0 0 1.15em;
   color: var(--color-text-primary);
-  font-family: var(--font-reading);
-  font-size: 1.125rem;
+  font-family: var(--font-diary);
+  font-size: var(--text-diary);
+  font-weight: 400;
   line-height: 2.1;
   letter-spacing: 0.025em;
   caret-color: var(--color-accent-strong);
@@ -116,8 +117,8 @@ watch(() => props.text, syncFromModel)
 
 .editable-paragraph:empty::before {
   color: var(--color-text-secondary);
-  font-family: var(--font-reading);
-  font-size: 1.0625rem;
+  font-family: var(--font-diary);
+  font-size: var(--text-diary);
   letter-spacing: 0.04em;
   content: attr(data-placeholder);
   pointer-events: none;

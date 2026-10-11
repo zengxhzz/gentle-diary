@@ -172,8 +172,8 @@ function metaParts(diary) {
   margin: 0;
   overflow: hidden;
   color: var(--color-text-secondary);
-  font-family: var(--font-reading);
-  font-size: 1rem;
+  font-family: var(--font-diary);
+  font-size: var(--text-diary);
   line-height: 1.8;
   overflow-wrap: anywhere;
   -webkit-box-orient: vertical;
